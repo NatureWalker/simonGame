@@ -65,7 +65,7 @@ body {
 }
 
 .container {
-  display: block;
+  display: none;
   width: 500px;
   margin: auto;
 }

@@ -154,6 +154,7 @@ function nextSequence(delayed) {
 
 function startGame() {
     $(".difficulty").slideUp();
+    $(".container").slideDown();
     clearStats();
     nextSequence(true);        
 }
@@ -176,11 +177,12 @@ function gameOver() {
             break;
     }
     setTimeout(function () {
-        $(".difficulty").slideDown();
-    }, 200)
-    setTimeout(function () {
         $("body").removeClass("game-over");
-    }, 200)
+    }, 300)
+    setTimeout(function () {
+        $(".container").slideUp();
+        $(".difficulty").slideDown();
+    }, 600)
     starterAction();
 }
 
