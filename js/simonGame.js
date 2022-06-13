@@ -197,7 +197,13 @@ function checkAnswer(currentLevel) {
     }
 }
 
-// Set Difficulty
+// Prep the Board for First Play
+
+$(".not-chosen").on("mouseover", function () {
+    playSound("difficulty", "choice-hover");
+});
+
+// Setup Choose Difficulty
 
 $(".difficulty-choice").on("click", function (event) {
     restoreChoice();
@@ -218,10 +224,11 @@ $(".difficulty-choice").on("click", function (event) {
     }
 });
 
-// Prep the Board for First Play
+// Set Easy to Chosen
 
-$(".difficulty-choice").removeClass("chosen");
 $(".difficulty-choice").addClass("not-chosen");
+$("#easy").removeClass("not-chosen").addClass("chosen");
+
 
 $(".not-chosen").on("mouseover", function () {
     playSound("difficulty", "choice-hover");
