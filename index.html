@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Simon</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+  </script>
+<link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+</head>
+
+<body>
+  <h1 id="level-title">Press Any Key to Start</h1>
+
+  <section class="difficulty">
+    <div class="difficulty-title">Set Your Difficulty</div>
+    <div class="difficulty-choice dc-1" id="easy"></div>
+    <div class="difficulty-choice dc-2" id="medium"></div>
+    <div class="difficulty-choice dc-3" id="hard"></div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <button id="green" class="simonButton green">
+
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button id="red" class="simonButton red">
+
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <button id="yellow" class="simonButton yellow">
+
+        </button>
+      </div>
+      <div class="col-md-6">
+
+        <button id="blue" class="simonButton blue">
+
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.js"></script> -->
+  <script src="js/simonGame.js"></script>
+</body>
+
+</html>
