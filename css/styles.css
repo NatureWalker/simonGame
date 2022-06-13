@@ -5,75 +5,40 @@ body {
   text-shadow: 5px 5px 1px black;
 }
 
-#level-title {
+#game-title {
   font-size: 3rem;
-  margin: 5% 5% 1%;
+  margin: 3% auto 2%;
   color: #FEF2BF;
 }
 
-.container {
-  display: block;
-  width: 45%;
-  margin: auto;
-}
-
-.simonButton {
-  margin: 25px;
-  display: inline-block;
-  height: 200px;
-  width: 200px;
-  border: 10px solid black;
-  border-radius: 20%;
-  box-shadow: 10px 10px 6px black;
-}
-
-.game-over {
-  background-color: red;
-  opacity: 0.8;
-}
-
-.red {
-  background-color: red;
-}
-
-
-.green {
-  background-color: green;
-}
-
-.blue {
-  background-color: blue;
-}
-
-.yellow {
-  background-color: yellow;
-}
-
-.pressed {
-  box-shadow: 0 0 20px white;
-  background-color: grey;
+#level-title {
+  background-image: linear-gradient(to right bottom, #000, #555);
+  border: solid 10px black;
+  border-radius: 10px;
+  font-size: 2rem;
+  padding: 1%;
+  margin: 1rem auto;
+  color: #fff;
+  width: 30%;
 }
 
 .difficulty {
-  text-align: center;
   position: relative;
+  text-align: center;
+  width: 500px;
+  margin: 1rem auto;
 }
 
 .difficulty-title {
   color: #fff;
   font-size: 1.5rem;
-  margin: 3rem auto 1.5rem;
+  padding: 1%;
 }
 
 .difficulty-choice {
   height: 100px;
   width: 100px;
   display: inline-block;
-}
-
-.dc-1,
-.dc-2,
-.dc-3 {
   background-position: center;
   background-repeat: no-repeat;
   transition: all .5s;
@@ -97,6 +62,68 @@ body {
   opacity: 1;
   animation: shake 0.5s;
   animation-iteration-count:1;
+}
+
+.container {
+  display: block;
+  width: 500px;
+  margin: auto;
+}
+
+.simonButton {
+  margin: 10%;
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  border: 10px solid black;
+  border-radius: 100%;
+  box-shadow: 10px 10px 6px black;
+  transition: all .2s;
+}
+
+.game-over {
+  background-color: red;
+  opacity: 0.8;
+}
+
+.red {
+  background-color: rgb(139, 0, 0);
+}
+
+.red-pressed {
+  box-shadow: 0 0 20px rgb(255, 0, 0);
+  background-color: rgb(255, 0, 0);
+  transform: translateY(3px) translateX(3px);
+}
+
+.green {
+  background-color: rgb(0, 100, 0);
+}
+
+.green-pressed {
+  box-shadow: 0 0 20px rgb(0, 212, 0);
+  background-color: rgb(0, 212, 0);
+  transform: translateY(3px) translateX(3px);
+}
+
+.blue {
+  background-color: rgb(0, 0, 139);
+}
+
+.blue-pressed {
+  box-shadow: 0 0 20px rgb(0, 0, 255);
+  background-color: rgb(0, 0, 255);
+  transform: translateY(3px) translateX(3px);
+}
+
+.yellow {
+  background-color: rgb(155, 155, 4);
+}
+
+.yellow-pressed {
+  box-shadow: 0 0 20px rgb(255, 255, 0);
+  background-color: rgb(255, 255, 0);
+  transform: translateY(3px) translateX(3px);
 }
 
 .dc-1 {

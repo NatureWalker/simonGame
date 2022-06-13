@@ -5,8 +5,6 @@ var gamePattern = [];
 var userClickedPattern = [];
 var userLevel = 0;
 var difficultyLevel = 1;
-var keyBoard = "Press Any Key";
-var touchScreen = "Tap Screen";
 
 // Functions Section
 
@@ -19,12 +17,9 @@ function detectTouch() {
 }
 
 if (detectTouch()) {
-    screenType = "touchScreen";
-    $("#level-title").text("Touch Here to Start");
-    $("#level-title").addClass("btn btn-large");
+    var screenType = "touchScreen";
 } else {
-    screenType = "keyboard";
-    $("#level-title").text("Press Any Key to Start");
+    var screenType = "keyboard";
 }
 
 // Reset Section
@@ -61,11 +56,11 @@ function playColorButton(color) {
             var speed = 1000;
             console.log("Something went wrong. speed is set to " + speed)
     }
-
     setTimeout(function () {
         playSound("theGame", gamePattern[color]);
         for (var i = 1; i < 5; i++) {
-            $("#" + gamePattern[color]).fadeToggle(75);
+            // $("#" + gamePattern[color]).fadeToggle(75);
+            animatePress(gamePattern[color]);
         }
     }, speed * color);
 }
@@ -99,25 +94,21 @@ function playSound(type, name) {
 }
 
 function animatePress(currentColor) {
-    $("#" + currentColor).addClass("pressed");
+    $("#" + currentColor).addClass(currentColor + "-pressed");
     setTimeout(function () {
-        $("#" + currentColor).removeClass("pressed");
+        $("#" + currentColor).removeClass(currentColor + "-pressed");
     }, 100);
 }
 
 function prepButtons() {
-
     $(".simonButton").on("click", function () {
         var userChosenColor = $(this).attr("id");
         userClickedPattern.push(userChosenColor);
         playSound("theGame", userChosenColor);
         animatePress(userChosenColor);
-
         var currentLevel = userClickedPattern.length - 1;
-
         checkAnswer(currentLevel);
     });
-
     $(".simonButton").on("mouseover", function () {
         playSound("buttonHover", "button-hover");
     })
@@ -126,41 +117,45 @@ function prepButtons() {
 // Game Sequences
 
 function starterAction() {
-
     if (detectTouch()) {
         $("#level-title").one("click", function () {
             startGame();
             prepButtons();
-            $("#level-title").removeClass("btn btn-large");
+            // $("#level-title").removeClass("btn btn-large");
             $("body").unbind("keydown");
         });
     };
-
     $("body").one("keydown", function () {
         startGame();
         prepButtons();
-        $("#level-title").removeClass("btn btn-large");
+        // $("#level-title").removeClass("btn btn-large");
         $("#level-title").unbind("click");
     });
-
 }
 
-function nextSequence() {
+function nextSequence(delayed) {
     userLevel++;
     $("#level-title").text("Level " + userLevel);
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColor = buttonColors[randomNumber];
     gamePattern.push(randomChosenColor);
-
-    for (var count = 0; count < gamePattern.length; count++) {
-        playColorButton(count);
+    if (delayed) {
+    setTimeout(function() {
+        for (var count = 0; count < gamePattern.length; count++) {
+            playColorButton(count);
+        }
+    }, 1000);
+    } else {
+        for (var count = 0; count < gamePattern.length; count++) {
+            playColorButton(count);
+        }
     }
 }
 
 function startGame() {
     $(".difficulty").slideUp();
     clearStats();
-    nextSequence();
+    nextSequence(true);        
 }
 
 function gameOver() {
@@ -168,30 +163,34 @@ function gameOver() {
     $(".simonButton").unbind("click");
     $(".simonButton").unbind("mouseover");
     $("body").addClass("game-over");
-    $("#level-title").text("Game Over. Press Any Key To Restart");
-
+    switch(screenType) {
+        case "keyboard":
+            $("#level-title").text("Game Over. Press Any Key To Restart");
+            break;
+        case "touchScreen":
+            $("#level-title").text("Game Over. Tap Here To Restart");
+            // $("#level-title").addClass("btn btn-large");
+            break;
+        default:
+            $("#level-title").text("Game Over. Press Any Key To Restart");
+            break;
+    }
     setTimeout(function () {
         $(".difficulty").slideDown();
     }, 200)
-
     setTimeout(function () {
         $("body").removeClass("game-over");
     }, 200)
-
     starterAction();
 }
 
 function checkAnswer(currentLevel) {
-
     if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
-
         if (userClickedPattern.length === gamePattern.length) {
-
             userClickedPattern = [];
-            setTimeout(nextSequence, 1000);
-
+            // setTimeout(nextSequence, 1000);
+            nextSequence(true);
         }
-
     } else {
         gameOver();
     }
@@ -199,6 +198,25 @@ function checkAnswer(currentLevel) {
 
 // Prep the Board for First Play
 
+// Set title based on input capability (touchscreen or keyboard)
+
+switch(screenType) {
+    case "keyboard":
+        $("#level-title").text("Press Any Key to Start");
+        break;
+    case "touchScreen":
+        $("#level-title").text("Touch Here to Start");
+        // $("#level-title").addClass("btn btn-large");
+        break;
+    default:
+        console.log(screenType);
+        break;
+}
+
+// Set Easy to Chosen
+
+$(".difficulty-choice").addClass("not-chosen");
+$("#easy").removeClass("not-chosen").addClass("chosen");
 $(".not-chosen").on("mouseover", function () {
     playSound("difficulty", "choice-hover");
 });
@@ -223,15 +241,7 @@ $(".difficulty-choice").on("click", function (event) {
             difficultyLevel = 3;
     }
 });
-
-// Set Easy to Chosen
-
-$(".difficulty-choice").addClass("not-chosen");
-$("#easy").removeClass("not-chosen").addClass("chosen");
-
-
 $(".not-chosen").on("mouseover", function () {
     playSound("difficulty", "choice-hover");
 });
-
 starterAction();
