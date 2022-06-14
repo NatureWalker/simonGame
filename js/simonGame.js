@@ -154,7 +154,7 @@ function nextSequence(delayed) {
 
 function startGame() {
     $(".difficulty").slideUp();
-    $(".container").slideDown();
+    $(".container").fadeIn();
     clearStats();
     nextSequence(true);        
 }
@@ -180,7 +180,7 @@ function gameOver() {
         $("body").removeClass("game-over");
     }, 300)
     setTimeout(function () {
-        $(".container").slideUp();
+        $(".container").fadeOut();
         $(".difficulty").slideDown();
     }, 600)
     starterAction();
