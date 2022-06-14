@@ -41,7 +41,6 @@ function restoreChoice() {
 // Interaction Section
 
 function playColorButton(color) {
-
     switch (difficultyLevel) {
         case 1:
             var speed = 1000;
@@ -66,7 +65,6 @@ function playColorButton(color) {
 }
 
 function playSound(type, name) {
-
     switch (type) {
         case "theGame":
             var theSound = new Audio("sounds/" + name + ".mp3");
@@ -77,9 +75,8 @@ function playSound(type, name) {
             var theSound = new Audio("sounds/" + name + "-" + randomSound + ".wav");
             theSound.play();
             break;
-        case "buttonHover":
-            var randomSound = Math.floor((Math.random() * 2) + 1);
-            var theSound = new Audio("sounds/" + name + "-" + randomSound + ".wav");
+        case "buttonsAppear":
+            var theSound = new Audio("sounds/buttons-" + name + ".wav");
             theSound.play();
             break;
         case "picked":
@@ -109,9 +106,9 @@ function prepButtons() {
         var currentLevel = userClickedPattern.length - 1;
         checkAnswer(currentLevel);
     });
-    $(".simonButton").on("mouseover", function () {
-        playSound("buttonHover", "button-hover");
-    })
+    // $(".simonButton").on("mouseover", function () {
+    //     playSound("buttonHover", "button-hover");
+    // })
 }
 
 // Game Sequences
@@ -121,48 +118,43 @@ function starterAction() {
         $("#level-title").one("click", function () {
             startGame();
             prepButtons();
-            // $("#level-title").removeClass("btn btn-large");
             $("body").unbind("keydown");
         });
     };
     $("body").one("keydown", function () {
         startGame();
         prepButtons();
-        // $("#level-title").removeClass("btn btn-large");
         $("#level-title").unbind("click");
     });
 }
 
-function nextSequence(delayed) {
+function nextSequence() {
     userLevel++;
     $("#level-title").text("Level " + userLevel);
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColor = buttonColors[randomNumber];
     gamePattern.push(randomChosenColor);
-    if (delayed) {
     setTimeout(function() {
         for (var count = 0; count < gamePattern.length; count++) {
             playColorButton(count);
         }
     }, 1000);
-    } else {
-        for (var count = 0; count < gamePattern.length; count++) {
-            playColorButton(count);
-        }
-    }
 }
 
 function startGame() {
     $(".difficulty").slideUp();
+    setTimeout(function() {
     $(".container").fadeIn();
+    playSound("buttonsAppear","up");
     clearStats();
-    nextSequence(true);        
+    nextSequence();
+    }, 400);
 }
 
 function gameOver() {
     playSound("theGame", "wrong");
     $(".simonButton").unbind("click");
-    $(".simonButton").unbind("mouseover");
+    // $(".simonButton").unbind("mouseover");
     $("body").addClass("game-over");
     switch(screenType) {
         case "keyboard":
@@ -170,7 +162,6 @@ function gameOver() {
             break;
         case "touchScreen":
             $("#level-title").text("Game Over. Tap Here To Restart");
-            // $("#level-title").addClass("btn btn-large");
             break;
         default:
             $("#level-title").text("Game Over. Press Any Key To Restart");
@@ -178,11 +169,14 @@ function gameOver() {
     }
     setTimeout(function () {
         $("body").removeClass("game-over");
-    }, 300)
+    }, 300);
     setTimeout(function () {
         $(".container").fadeOut();
+        playSound("buttonsAppear","down");
+      }, 600);
+    setTimeout(function () {
         $(".difficulty").slideDown();
-    }, 600)
+      }, 1000);
     starterAction();
 }
 
@@ -190,7 +184,6 @@ function checkAnswer(currentLevel) {
     if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
         if (userClickedPattern.length === gamePattern.length) {
             userClickedPattern = [];
-            // setTimeout(nextSequence, 1000);
             nextSequence(true);
         }
     } else {
@@ -208,7 +201,6 @@ switch(screenType) {
         break;
     case "touchScreen":
         $("#level-title").text("Touch Here to Start");
-        // $("#level-title").addClass("btn btn-large");
         break;
     default:
         console.log(screenType);
