@@ -226,6 +226,10 @@ $(".not-chosen").on("mouseover", function () {
 
 // Setup Choose Difficulty
 
+$(".difficulty-menu-icon").on("click", () => {
+    $(".difficulty-section").slideToggle();
+});
+
 $(".difficulty-choice").on("click", function (event) {
     restoreChoice();
     $(this).removeClass("not-chosen");
@@ -233,6 +237,7 @@ $(".difficulty-choice").on("click", function (event) {
     $(this).unbind("mouseover");
     playSound("picked", "choice-pick");
     theChoice = $(this).attr("id");
+    var diffLevels = ["weak","decent","strong"];
     switch (theChoice) {
         case "easy":
             difficultyLevel = 1;
@@ -243,6 +248,7 @@ $(".difficulty-choice").on("click", function (event) {
         case "hard":
             difficultyLevel = 3;
     }
+    $(".difficulty-menu-icon").attr("src","img/" + diffLevels[difficultyLevel - 1] + ".png");
 });
 
 $(".not-chosen").on("mouseover", function () {
