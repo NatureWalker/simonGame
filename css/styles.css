@@ -15,10 +15,14 @@ body {
   background-image: linear-gradient(to right bottom, #000, #555);
   border: solid 10px black;
   border-radius: 10px;
-  font-size: 2rem;
-  padding: 1%;
-  margin: 1rem auto;
   color: #fff;
+  display: inline-block;
+  font-size: 2rem;
+  /* height: 128px; */
+  line-height: 1.5;
+  margin: 1rem auto;
+  /* padding: 1%; */
+  vertical-align: middle;
   width: 30%;
 }
 

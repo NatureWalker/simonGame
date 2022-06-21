@@ -5,7 +5,6 @@ var gamePattern = [];
 var userClickedPattern = [];
 var userLevel = 0;
 var difficultyLevel = 1;
-var speed = 500;
 
 // Functions Section
 
@@ -27,7 +26,7 @@ if (detectTouch()) {
 
 function clearStats() {
     gamePattern = [];
-    userClickedPattern = [];
+    userClickedPattern = []
     userLevel = 0;
 }
 
@@ -39,33 +38,30 @@ function restoreChoice() {
     });
 }
 
-function setSpeed(difficultyLevel) {
-    switch (difficultyLevel) {
-        case 3:
-            speed = 1500;
-            break;
-        case 2:
-            speed = 1000;
-            break;
-        case 1:
-            speed = 500;
-            break;
-        default:
-            speed = 500;
-            console.log("Something went wrong. speed is set to " + speed);
-    }
-    return speed;
-}
-
 // Interaction Section
 
 function playColorButton(color) {
-    setTimeout(() => {
+    switch (difficultyLevel) {
+        case 1:
+            var speed = 1000;
+            break;
+        case 2:
+            var speed = 750;
+            break;
+        case 3:
+            var speed = 500;
+            break;
+        default:
+            var speed = 1000;
+            console.log("Something went wrong. speed is set to " + speed)
+    }
+    setTimeout(function () {
         playSound("theGame", gamePattern[color]);
         for (var i = 1; i < 5; i++) {
+            // $("#" + gamePattern[color]).fadeToggle(75);
             animatePress(gamePattern[color]);
         }
-    }, setSpeed(difficultyLevel) * color);
+    }, speed * color);
 }
 
 function playSound(type, name) {
@@ -110,10 +106,9 @@ function prepButtons() {
         var currentLevel = userClickedPattern.length - 1;
         checkAnswer(currentLevel);
     });
-}
-
-function disableButtonPush() {
-    $(".simonButton").unbind("click");
+    // $(".simonButton").on("mouseover", function () {
+    //     playSound("buttonHover", "button-hover");
+    // })
 }
 
 // Game Sequences
@@ -125,7 +120,7 @@ function starterAction() {
             prepButtons();
             $("body").unbind("keydown");
         });
-    }
+    };
     $("body").one("keydown", function () {
         startGame();
         prepButtons();
@@ -139,12 +134,7 @@ function nextSequence() {
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColor = buttonColors[randomNumber];
     gamePattern.push(randomChosenColor);
-    disableButtonPush();
-    var timeOutTime = setSpeed(difficultyLevel) * gamePattern.length;
-    setTimeout(() => {
-        prepButtons();
-    }, timeOutTime + 1000);
-    setTimeout(() => {
+    setTimeout(function() {
         for (var count = 0; count < gamePattern.length; count++) {
             playColorButton(count);
         }
@@ -164,6 +154,7 @@ function startGame() {
 function gameOver() {
     playSound("theGame", "wrong");
     $(".simonButton").unbind("click");
+    // $(".simonButton").unbind("mouseover");
     $("body").addClass("game-over");
     switch(screenType) {
         case "keyboard":
@@ -193,7 +184,7 @@ function checkAnswer(currentLevel) {
     if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
         if (userClickedPattern.length === gamePattern.length) {
             userClickedPattern = [];
-            nextSequence();
+            nextSequence(true);
         }
     } else {
         gameOver();
@@ -244,7 +235,6 @@ $(".difficulty-choice").on("click", function (event) {
             difficultyLevel = 3;
     }
 });
-
 $(".not-chosen").on("mouseover", function () {
     playSound("difficulty", "choice-hover");
 });
