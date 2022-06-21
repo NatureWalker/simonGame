@@ -75,11 +75,11 @@ body {
 }
 
 .sound-on {
-  filter: drop-shadow(0px 0px 1px rgb(0, 255, 0));
+  filter: drop-shadow(0px 0px 3px rgb(0, 255, 0));
 }
 
 .sound-off {
-  filter: drop-shadow(0 0 1px rgb(255, 0, 0));
+  filter: drop-shadow(0 0 3px rgb(255, 0, 0));
 }
 
 .difficulty-section {
@@ -99,7 +99,7 @@ body {
   display: block;
   height: 75px;
   position:absolute;
-  right: 20%;
+  right: 19%;
   transition: all .5s;
   width: 75px;
 }
