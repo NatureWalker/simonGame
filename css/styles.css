@@ -23,78 +23,109 @@ body {
   margin: 1rem auto;
   /* padding: 1%; */
   vertical-align: middle;
-  width: 30%;
+  width: 50%;
 }
 
 .navbar-snd {
   background-image: linear-gradient(to right bottom, #000, #555);
   border: solid 10px black;
   border-radius: 10px;
-  width: 30%;
+  width: 50%;
   height: 5rem;
   margin: 2% auto 0;
+  position: relative;
 }
 
 .small-brand {
+  align-items: center;
+  bottom: 0;
+  color: #fff;
+  display: flex;
   font-size: 1em;
-  text-align: left;
   position: absolute;
-  margin: auto 0 auto 10px;
-}
-
-#menu-difficulty {
+  left: 3%;
+  text-align: left;
+  top: 0;
   text-decoration: none;
-}
+  }
 
 .difficulty-menu-icon {
-  width: 50px;
-  position: absolute;
-  top: 0;
+  align-items: center;
   bottom: 0;
-  vertical-align: center;
-  margin: auto 0px auto 38%;
+  display: flex;
+  padding: 0;
+  position: absolute;
+  right: 20%;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 50px;
+}
+
+.sound-selection {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 50px;
+}
+
+.sound-on {
+  filter: drop-shadow(0px 0px 1px rgb(0, 255, 0));
+}
+
+.sound-off {
+  filter: drop-shadow(0 0 1px rgb(255, 0, 0));
 }
 
 .difficulty-section {
   display: none;
   margin: 0 50%;
   transform: translate(-50%);
-  z-index: 2;
   position: absolute;
-  width: 30%;
+  width: 50%;
 }
 
 .difficulty-choice {
-  margin-left: 38%;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: #555;
   border: solid 3px #000;
   border-radius: 8px;
-  height: 75px;
-  width: 75px;
   display: block;
-  background-position: center;
-  background-repeat: no-repeat;
+  height: 75px;
+  position:absolute;
+  right: 20%;
   transition: all .5s;
+  width: 75px;
 }
 
 .not-chosen {
   background-size: 50%;
   opacity: 0.8;
+  position: inherit;
+  z-index: 1;
 }
 
 .not-chosen:hover {
   transform: scale(1.5);
   filter: drop-shadow(0px 0px 1px #fff);
   opacity: 1;
+  position: inherit;
+  z-index: 2;
 }
 
 .chosen {
   background-size: 75%;
   /* transform: scale(1.5); */
-  filter: drop-shadow(0px 0px 5px yellow);
+  filter: drop-shadow(0px 0px 5px rgb(255, 255, 1));
   opacity: 1;
   animation: shake 0.5s;
-  animation-iteration-count:1;
+  animation-iteration-count: 1;
 }
 
 .container {
@@ -165,10 +196,12 @@ body {
 
 .dc-2 {
   background-image: url("../img/decent.png");
+  top: 75px;
 }
 
 .dc-3 {
   background-image: url("../img/strong.png");
+  top: 150px;
 }
 
 /* .dc-1:active,.dc-2:active,.dc-3:active {

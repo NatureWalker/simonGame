@@ -6,6 +6,7 @@ var userClickedPattern = [];
 var userLevel = 0;
 var difficultyLevel = 1;
 var speed = 500;
+var soundSetting = "on";
 
 // Functions Section
 
@@ -42,16 +43,16 @@ function restoreChoice() {
 function setSpeed(difficultyLevel) {
     switch (difficultyLevel) {
         case 3:
-            speed = 1500;
+            speed = 500;
             break;
         case 2:
             speed = 1000;
             break;
         case 1:
-            speed = 500;
+            speed = 1500;
             break;
         default:
-            speed = 500;
+            speed = 1500;
             console.log("Something went wrong. speed is set to " + speed);
     }
     return speed;
@@ -68,29 +69,49 @@ function playColorButton(color) {
     }, setSpeed(difficultyLevel) * color);
 }
 
-function playSound(type, name) {
-    switch (type) {
-        case "theGame":
-            var theSound = new Audio("sounds/" + name + ".mp3");
-            theSound.play();
+function turnSound(setting) {
+    switch (setting) {
+        case "on":
+            $(".sound-selection").attr("src", "img/unmute.png");
+            $(".sound-selection").removeClass("sound-off").addClass("sound-on");
+            soundSetting = "on";
             break;
-        case "difficulty":
-            var randomSound = Math.floor((Math.random() * 3) + 1);
-            var theSound = new Audio("sounds/" + name + "-" + randomSound + ".wav");
-            theSound.play();
-            break;
-        case "buttonsAppear":
-            var theSound = new Audio("sounds/buttons-" + name + ".wav");
-            theSound.play();
-            break;
-        case "picked":
-            var theSound = new Audio("sounds/" + name + ".wav");
-            theSound.play();
+        case "off":
+            $(".sound-selection").attr("src", "img/mute.png");
+            $(".sound-selection").removeClass("sound-on").addClass("sound-off");
+            soundSetting = "off";
             break;
         default:
-            console.log(type);
-            console.log(name);
+            console.log("Something went wrong with the sound setting. Setting is " + setting);
             break;
+    }
+}
+
+function playSound(type, name) {
+    if (soundSetting === "on") {
+        switch (type) {
+            case "theGame":
+                var theSound = new Audio("sounds/" + name + ".mp3");
+                theSound.play();
+                break;
+            case "difficulty":
+                var randomSound = Math.floor((Math.random() * 3) + 1);
+                var theSound = new Audio("sounds/" + name + "-" + randomSound + ".wav");
+                theSound.play();
+                break;
+            case "buttonsAppear":
+                var theSound = new Audio("sounds/buttons-" + name + ".wav");
+                theSound.play();
+                break;
+            case "picked":
+                var theSound = new Audio("sounds/" + name + ".wav");
+                theSound.play();
+                break;
+            default:
+                console.log(type);
+                console.log(name);
+                break;
+        }
     }
 }
 
@@ -153,11 +174,12 @@ function nextSequence() {
 
 function startGame() {
     $(".difficulty").slideUp();
-    setTimeout(function() {
-    $(".container").fadeIn();
-    playSound("buttonsAppear","up");
-    clearStats();
-    nextSequence();
+    $(".difficulty-section").slideUp();
+    setTimeout(function () {
+        $(".container").fadeIn();
+        playSound("buttonsAppear", "up");
+        clearStats();
+        nextSequence();
     }, 400);
 }
 
@@ -165,7 +187,7 @@ function gameOver() {
     playSound("theGame", "wrong");
     $(".simonButton").unbind("click");
     $("body").addClass("game-over");
-    switch(screenType) {
+    switch (screenType) {
         case "keyboard":
             $("#level-title").text("Game Over. Press Any Key To Restart");
             break;
@@ -181,11 +203,11 @@ function gameOver() {
     }, 300);
     setTimeout(function () {
         $(".container").fadeOut();
-        playSound("buttonsAppear","down");
-      }, 600);
+        playSound("buttonsAppear", "down");
+    }, 600);
     setTimeout(function () {
         $(".difficulty").slideDown();
-      }, 1000);
+    }, 1000);
     starterAction();
 }
 
@@ -204,7 +226,7 @@ function checkAnswer(currentLevel) {
 
 // Set title based on input capability (touchscreen or keyboard)
 
-switch(screenType) {
+switch (screenType) {
     case "keyboard":
         $("#level-title").text("Press Any Key to Start");
         break;
@@ -237,7 +259,7 @@ $(".difficulty-choice").on("click", function (event) {
     $(this).unbind("mouseover");
     playSound("picked", "choice-pick");
     theChoice = $(this).attr("id");
-    var diffLevels = ["weak","decent","strong"];
+    var diffLevels = ["weak", "decent", "strong"];
     switch (theChoice) {
         case "easy":
             difficultyLevel = 1;
@@ -248,7 +270,15 @@ $(".difficulty-choice").on("click", function (event) {
         case "hard":
             difficultyLevel = 3;
     }
-    $(".difficulty-menu-icon").attr("src","img/" + diffLevels[difficultyLevel - 1] + ".png");
+    $(".difficulty-menu-icon").attr("src", "img/" + diffLevels[difficultyLevel - 1] + ".png");
+});
+
+$(".sound-selection").on("click", () => {
+    if (soundSetting === "on") {
+        turnSound("off");
+    } else if (soundSetting === "off") {
+        turnSound("on");
+    }
 });
 
 $(".not-chosen").on("mouseover", function () {

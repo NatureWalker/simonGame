@@ -9,22 +9,25 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
   </script>
-<link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
 
 <body>
-  <nav class="navbar navbar-dark navbar-snd difficulty">
-    <a href="#" class="navbar-brand small-brand">Simon<br>Sez</a>
+  <div class="navbar-snd difficulty">
+    <a href="#" class="small-brand">Simon<br>Sez</a>
     <a href="#" class="diff-drop-down">
-        <img src="img/weak.png" class="difficulty-menu-icon chosen">
-      </a>
-    </nav>
-    <div class="difficulty-section">
-      <div class="difficulty-choice dc-1" id="easy"></div>
-      <div class="difficulty-choice dc-2" id="medium"></div>
-      <div class="difficulty-choice dc-3" id="hard"></div>
-    </div>
+      <img src="img/weak.png" class="difficulty-menu-icon chosen">
+    </a>
+    <a href="#">
+      <img src="img/unmute.png" alt="Volume On" class="sound-selection sound-on">
+    </a>
+  </div>
+  <div class="difficulty-section">
+    <div class="difficulty-choice dc-1" id="easy"></div>
+    <div class="difficulty-choice dc-2" id="medium"></div>
+    <div class="difficulty-choice dc-3" id="hard"></div>
+  </div>
 
   <div id="level-title">Press Any Key to Start</div>
   <div class="container">
